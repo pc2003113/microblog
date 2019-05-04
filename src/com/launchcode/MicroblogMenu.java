@@ -1,5 +1,6 @@
 package com.launchcode;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,13 +23,20 @@ public class MicroblogMenu {
 
     public void displayMenu(){
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Please select from the following list of menu\n" +
+        if(currentUser!=null){
+        System.out.println("Current user logged in is "+currentUser.getUserName());
+        }
+        else{
+            System.out.println("There is no user logged in at this time");
+        }
+        System.out.println("Menu Options\n" +
                 "1- Login\n" +
                 "2- Create a post\n" +
                 "3- Print all the posts\n" +
                 "4- Print all the users\n" +
-                "0- to exist");
-
+                "5- Choose the user\n" +
+                "0- to exit");
+        System.out.println("Please enter your selection");
     }
 
     public int userChoice(){
@@ -92,6 +100,8 @@ public class MicroblogMenu {
                     System.out.println(individualPost);
 
                 }
+
+
                 break;
 
             case 4 : // print all users
@@ -101,6 +111,21 @@ public class MicroblogMenu {
                 }
 
                 break;
+
+            case 5 : // selection of user
+            if(users.size()!=0) {
+                for (int i=0; i < users.size(); i++) {
+                    System.out.println(i + " " + users.get(i).getUserName());
+
+                }
+                System.out.println("Please enter the your choice of user");
+                int userPick=keyboard.nextInt();
+                currentUser=users.get(userPick);
+            }
+            else{
+                System.out.println("Currently there are no users listed. Please pick option 1 to create an user\n\n");
+            }
+            break;
 
             case 0:
                 System.out.println( "Bye bye .. see you later");
